@@ -22,7 +22,6 @@ namespace _4_shorting_method
         /// <summary>
         /// Start Shorting metode divided to 4 different function shorting 
         /// </summary>
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (textBox1.Text != "") {
@@ -31,16 +30,13 @@ namespace _4_shorting_method
             QuicShort();
             BubbleShort();
             MergeShort();
-                findGCD(myInts4);
-                dataGridView4.ColumnCount = 2;
-                for (int i = 0; i < myInts4.Length; i++)
-                {
-                    dataGridView4.Rows.Add(new object[] { i, myInts4[i] });
-                }
+            GCFShort();
             }
             
         }
-
+        /// <summary>
+        /// Get the array from text box and store to 4 variabel to be processed
+        /// </summary>
         private void SaveandStored() {
             myArray = textBox1.Text.Split(new Char[] { ',' });
             myInts = Array.ConvertAll(myArray, int.Parse);
@@ -48,6 +44,11 @@ namespace _4_shorting_method
             myInts3 = myInts;
             myInts4 = myInts;
         }
+
+
+        /// <summary>
+        /// Make sure Clean the data grid before add new data
+        /// </summary>
         private void Cleandatagrid()
         {
             dataGridView1.DataSource = null;
@@ -57,6 +58,11 @@ namespace _4_shorting_method
             dataGridView3.DataSource = null;
             dataGridView3.Rows.Clear();
         }
+
+
+        /// <summary>
+        /// Quick Short function  using standart metode .Short
+        /// </summary>
         private void QuicShort()
         {
             Stopwatch stopWatch = new Stopwatch();
@@ -73,6 +79,11 @@ namespace _4_shorting_method
             stopWatch.Elapsed.Milliseconds / 1000.0);
 
         }
+
+
+        /// <summary>
+        /// Bubble Sort by swaping value each element on array 
+        /// </summary>
         private void BubbleShort()
         {
             Stopwatch stopWatch = new Stopwatch();
@@ -98,6 +109,10 @@ namespace _4_shorting_method
             stopWatch.Elapsed.Milliseconds / 1000.0);
             
         }
+
+        /// <summary>
+        /// Mgerge 2 array or 1 array by split them into 2 and start short an 2 element 
+        /// </summary>
         private void MergeShort() {
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -182,20 +197,41 @@ namespace _4_shorting_method
             return result;
         }
 
-        static int BasicGCD(int a, int b)
+        /// <summary>
+        /// Sort the numbers by their Greatest Common Factor, i think this not really works well
+        /// </summary>
+        private void GCFShort()
+        {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            ArrayGCF(myInts4);
+
+            dataGridView4.ColumnCount = 2;
+            for (int i = 0; i < myInts3.Length; i++)
+            {
+                dataGridView4.Rows.Add(new object[] { i, myInts4[i] });
+            }
+            stopWatch.Stop();
+            label4.Text = String.Format("time: {0} ms",
+            stopWatch.Elapsed.Milliseconds / 1000.0);
+
+        }
+        static int BasicGCF(int a, int b)
         {
             if (a == 0)
                 return b;
-            return BasicGCD(b % a, a);
+            return BasicGCF(b % a, a);
         }
-        static int findGCD(int[] arr)
+        static int ArrayGCF(int[] arr)
         {int n = arr.Length;    
             int result = arr[0];
             for (int i = 1; i < n; i++)
-                result = BasicGCD(arr[i], result);
+                result = BasicGCF(arr[i], result);
 
             return result;
         }
+
 
     }
 }
